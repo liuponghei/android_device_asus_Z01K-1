@@ -21,7 +21,7 @@
 # definition file).
 #
 
-$(call inherit-product, vendor/oneplus/oneplus3/oneplus3-vendor.mk)
+$(call inherit-product, vendor/asus/Z01K/Z01K-vendor.mk)
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
@@ -83,12 +83,12 @@ TARGET_SCREEN_HEIGHT := 1920
 TARGET_SCREEN_WIDTH := 1080
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.heapstartsize=16m \
+    dalvik.vm.heapstartsize=8m \
     dalvik.vm.heapgrowthlimit=256m \
-    dalvik.vm.heapsize=512m \
+    dalvik.vm.heapsize=768m \
     dalvik.vm.heaptargetutilization=0.75 \
-    dalvik.vm.heapminfree=4m \
-    dalvik.vm.heapmaxfree=8m
+    dalvik.vm.heapminfree=512k \
+    dalvik.vm.heapmaxfree=64m
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.extension_library=libqti-perfd-client.so \
@@ -115,7 +115,7 @@ PRODUCT_BOOT_JARS += \
 PRODUCT_PACKAGES += \
     audiod \
     audio.a2dp.default \
-    audio.primary.msm8996 \
+    audio.primary.sdm660 \
     audio.r_submix.default \
     audio.usb.default \
     libaudio-resampler \
@@ -215,10 +215,10 @@ PRODUCT_PACKAGES += \
 
 # Display/Graphics
 PRODUCT_PACKAGES += \
-    copybit.msm8996 \
-    gralloc.msm8996 \
-    hwcomposer.msm8996 \
-    memtrack.msm8996 \
+    copybit.sdm660 \
+    gralloc.sdm660 \
+    hwcomposer.sdm660 \
+    memtrack.sdm660 \
     libdisplayconfig \
     liboverlay \
     libqdMetaData.system \
@@ -441,7 +441,7 @@ PRODUCT_PACKAGES += \
 
 # Thermal
 PRODUCT_PACKAGES += \
-    thermal.msm8996 \
+    thermal.sdm660 \
     android.hardware.thermal@1.0-impl \
     android.hardware.thermal@1.0-service
 
@@ -460,7 +460,7 @@ PRODUCT_PACKAGES += \
 
 # VR
 PRODUCT_PACKAGES += \
-    vr.msm8996 \
+    vr.sdm660 \
     android.hardware.vr@1.0-impl \
     android.hardware.vr@1.0-service
 
@@ -492,4 +492,4 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini
 
 # Inherit from oppo-common
-$(call inherit-product, device/oppo/common/common.mk)
+$(call inherit-product, device/qcom/common/common.mk)
