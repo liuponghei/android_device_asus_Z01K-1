@@ -1,5 +1,5 @@
 #
-# system.prop for msm8996
+# system.prop for sdm660
 #
 
 #rild.libpath=/system/lib/libreference-ril.so
@@ -159,7 +159,7 @@ Camera.no_navigation_bar=true
 
 #ifdef VENDOR_EDIT
 #yangfb 20160919 ,modify to set cutoff voltage to 3250mv
-ro.cutoff_voltage_mv=3250
+ro.cutoff_voltage_mv=3400
 #endif
 
 #property for game detection feature
