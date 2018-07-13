@@ -21,14 +21,33 @@
 # definition file).
 #
 
-# Inherit from oppo-common
--include device/oppo/common/BoardConfigCommon.mk
+# Bootloader
+TARGET_NO_BOOTLOADER := true
+TARGET_BOOTLOADER_BOARD_NAME := sdm660
+is-vendor-board-platform := QCOM
+# Platform
+TARGET_BOARD_PLATFORM := sdm660
+TARGET_BOARD_PLATFORM_GPU := qcom-adreno512
+QCOM_BOARD_PLATFORMS := sdm660
+# Architecture
+TARGET_ARCH := arm64
+TARGET_ARCH_VARIANT := armv8-a
+TARGET_CPU_ABI := arm64-v8a
+TARGET_CPU_ABI2 :=
+TARGET_CPU_VARIANT := generic
+TARGET_CPU_SMP := true
 
-PLATFORM_PATH := device/oneplus/oneplus3
+TARGET_2ND_ARCH := arm
+TARGET_2ND_ARCH_VARIANT := armv7-a-neon
+TARGET_2ND_CPU_ABI := armeabi-v7a
+TARGET_2ND_CPU_ABI2 := armeabi
+TARGET_2ND_CPU_VARIANT := generic
+
+PLATFORM_PATH := device/asus/Z01K
 
 TARGET_SPECIFIC_HEADER_PATH := $(PLATFORM_PATH)/include
 
-BOARD_VENDOR := oneplus
+BOARD_VENDOR := asus
 
 # Assertions
 TARGET_BOARD_INFO_FILE ?= $(PLATFORM_PATH)/board-info.txt
@@ -37,13 +56,7 @@ TARGET_OTA_ASSERT_DEVICE := OnePlus3,oneplus3,OnePlus3T,oneplus3t
 # Use Snapdragon LLVM, if available
 TARGET_USE_SDCLANG := true
 
-# Bootloader
-TARGET_BOOTLOADER_BOARD_NAME := msm8996
-TARGET_NO_BOOTLOADER := true
 
-# Platform
-TARGET_BOARD_PLATFORM := msm8996
-TARGET_BOARD_PLATFORM_GPU := qcom-adreno530
 
 # Architecture
 TARGET_ARCH := arm64
@@ -61,16 +74,26 @@ TARGET_2ND_CPU_VARIANT := kryo
 TARGET_USES_64_BIT_BINDER := true
 
 # Kernel
-BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 cma=32M@0-0xffffffff
-#BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
-BOARD_KERNEL_BASE := 0x80000000
+BOARD_KERNEL_CMDLINE := console=ttyMSM0,115200,n8
+BOARD_KERNEL_CMDLINE += androidboot.console=ttyMSM0 androidboot.hardware=qcom
+BOARD_KERNEL_CMDLINE += androidboot.configfs=true androidboot.usbcontroller=a800000.dwc3
+BOARD_KERNEL_CMDLINE += earlycon=msm_serial_dm,0xc170000 msm_rtb.filter=0x37 ehci-hcd.park=3
+BOARD_KERNEL_CMDLINE += sched_enable_hmp=1 sched_enable_power_aware=1
+BOARD_KERNEL_CMDLINE += lpm_levels.sleep_disabled=1 service_locator.enable=1 swiotlb=1
+BOARD_KERNEL_CMDLINE += user_debug=31 androidboot.selinux=permissive
+TARGET_KERNEL_APPEND_DTB := true
+BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 4096
-BOARD_KERNEL_TAGS_OFFSET := 0x02000000
-BOARD_RAMDISK_OFFSET     := 0x02200000
+BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01000000
+
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
-TARGET_KERNEL_SOURCE := kernel/oneplus/msm8996
-TARGET_KERNEL_CONFIG := lineageos_oneplus3_defconfig
+TARGET_KERNEL_ARCH := arm64
+TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
+TARGET_KERNEL_CONFIG := ze554kl-userdebug-sdm660_defconfig
+TARGET_KERNEL_SOURCE := kernel/msm-4.4
+TARGET_LDPRELOAD := libNimsWrap.so
+
 
 # QCOM hardware
 BOARD_USES_QCOM_HARDWARE := true
@@ -192,7 +215,7 @@ BOARD_NFC_HAL_SUFFIX := $(TARGET_BOARD_PLATFORM)
 
 # Partitions
 BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
-BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := f2fs
+BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_CACHEIMAGE_PARTITION_SIZE := 268435456
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 67108864
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 3154116608
@@ -224,7 +247,7 @@ BOARD_SEPOLICY_DIRS += $(PLATFORM_PATH)/sepolicy
 
 # Shims
 TARGET_LD_SHIM_LIBS := \
-    /vendor/lib/hw/camera.msm8996.so|libcamera_shim.so
+    /vendor/lib/hw/camera.sdm660.so|libcamera_shim.so
 
 # Thermal
 USE_DEVICE_SPECIFIC_THERMAL := true
@@ -250,4 +273,4 @@ WIFI_DRIVER_FW_PATH_P2P := "p2p"
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 
 # inherit from the proprietary version
--include vendor/oneplus/oneplus3/BoardConfigVendor.mk
+-include vendor/asus/Z01K/BoardConfigVendor.mk
