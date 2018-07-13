@@ -19,8 +19,8 @@
 set -e
 
 # Required!
-DEVICE=oneplus3
-VENDOR=oneplus
+DEVICE=Z01K
+VENDOR=asus
 
 INITIAL_COPYRIGHT_YEAR=2016
 
